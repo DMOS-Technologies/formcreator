@@ -489,7 +489,12 @@ PluginFormcreatorTranslatableInterface
                if ($answer->isNewItem()) {
                   continue 2;
                } else {
-                  $userIds = [$answer->fields['answer']];
+                  if (
+                     is_array($answer->fields['answer'])
+                     && count($answer->fields['answer']) > 1
+                  )
+                     $userIds = [(int) $answer->fields['answer'][1]];
+                  else $userIds = [$answer->fields['answer']];
                }
                break;
             case PluginFormcreatorTarget_Actor::ACTOR_TYPE_QUESTION_ACTORS:
